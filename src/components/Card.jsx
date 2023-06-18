@@ -16,7 +16,7 @@ import {
   AlertDialogBody,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, TimeIcon } from "@chakra-ui/icons";
 import { useContext, useState } from "react";
 import { DbContext } from "../store/DatabaseContext";
 
@@ -67,6 +67,10 @@ const Card = ({ title, description, details }) => {
             <Text>Time: {details.time}</Text>
             <Text>Goal: {details.goal}</Text>
             <Text>Date: {details.date}</Text>
+            <br />
+            <Button colorScheme="linkedin" leftIcon={<TimeIcon />}>
+              Archive this habit
+            </Button>
           </AlertDialogBody>
         </AlertDialogContent>
       </AlertDialog>

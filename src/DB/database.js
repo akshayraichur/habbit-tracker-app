@@ -9,6 +9,7 @@ export default [
     [FORM_TYPES.TIME]: "night",
     [FORM_TYPES.DATE]: "today",
     description: "Lorem ipsum dolor sit amet.",
+    isArchive: false,
   },
   {
     id: "1234",
@@ -18,6 +19,7 @@ export default [
     [FORM_TYPES.TIME]: "evening",
     [FORM_TYPES.DATE]: "today",
     description: "Lorem ipsum dolor sit amet.",
+    isArchive: false,
   },
   {
     id: "1235",
@@ -27,5 +29,16 @@ export default [
     [FORM_TYPES.TIME]: "morning",
     [FORM_TYPES.DATE]: "today",
     description: "Lorem ipsum dolor sit amet.",
+    isArchive: false,
+  },
+  {
+    id: "12356",
+    [FORM_TYPES.NAME]: "Read JavaScript book",
+    [FORM_TYPES.REPEAT]: "daily",
+    [FORM_TYPES.GOAL]: "twice",
+    [FORM_TYPES.TIME]: "morning",
+    [FORM_TYPES.DATE]: "today",
+    description: "Lorem ipsum dolor sit amet.",
+    isArchive: true,
   },
 ];

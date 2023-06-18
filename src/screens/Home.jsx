@@ -1,18 +1,23 @@
-import { Button, Center, SimpleGrid, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Center, SimpleGrid, Text } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { useContext, useState } from "react";
-import { AddIcon } from "@chakra-ui/icons";
+import { useContext, useMemo, useState } from "react";
+import { AddIcon, TimeIcon } from "@chakra-ui/icons";
 import Card from "../components/Card";
 
 import { DbContext } from "../store/DatabaseContext";
 
 import Modal from "../components/Modal";
 import FormFields from "../components/FormFields";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const { db } = useContext(DbContext);
+
+  const habitsList = useMemo(() => db.filter((item) => !item.isArchive), [db]);
+
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -22,15 +27,26 @@ const Home = () => {
         </Text>
         <br />
         <Center>
-          <Button
-            colorScheme="linkedin"
-            onClick={() => setOpenModal(true)}
-            leftIcon={<AddIcon />}
-            size="lg"
-            variant="outline"
-          >
-            Add habit
-          </Button>
+          <ButtonGroup spacing={4}>
+            <Button
+              colorScheme="linkedin"
+              onClick={() => setOpenModal(true)}
+              leftIcon={<AddIcon />}
+              size="lg"
+              variant="outline"
+            >
+              Add habit
+            </Button>
+            <Button
+              colorScheme="linkedin"
+              onClick={() => navigate("/archive")}
+              leftIcon={<TimeIcon />}
+              size="lg"
+              variant="solid"
+            >
+              View Archives
+            </Button>
+          </ButtonGroup>
         </Center>
       </div>
 
@@ -44,7 +60,7 @@ const Home = () => {
 
       <div>
         <SimpleGrid spacing={2} templateColumns="repeat(auto-fill, minmax(300px, 1fr))">
-          {db.map((item) => (
+          {habitsList.map((item) => (
             <Card key={item.id} title={item.name} description={item.description} id={item.id} details={item} />
           ))}
         </SimpleGrid>

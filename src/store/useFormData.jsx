@@ -39,6 +39,7 @@ const reducer = (state, action) => {
           ...state,
           id: Math.random().toString(),
           description: "Lorem ipsum dolor sit amet.",
+          isArchive: false,
         },
       ]);
 
