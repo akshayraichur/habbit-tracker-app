@@ -1,5 +1,5 @@
 import { Input, Select, SimpleGrid } from "@chakra-ui/react";
-
+import PropTypes from "prop-types";
 import { ACTION_TYPES, FORM_TYPES } from "../constants";
 import { useContext } from "react";
 import { DbContext } from "../store/DatabaseContext";
@@ -15,6 +15,7 @@ const FormFields = () => {
       },
     });
   };
+  console.log(state);
 
   return (
     <form>
@@ -98,6 +99,10 @@ const FormFields = () => {
       </SimpleGrid>
     </form>
   );
+};
+
+FormFields.propTypes = {
+  type: PropTypes.string,
 };
 
 export default FormFields;

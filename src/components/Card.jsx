@@ -20,11 +20,15 @@ import { DeleteIcon, EditIcon, TimeIcon } from "@chakra-ui/icons";
 import { useContext, useState } from "react";
 import { DbContext } from "../store/DatabaseContext";
 import { useLocation } from "react-router-dom";
+import Modal from "./Modal";
+import FormFields from "./FormFields";
+import { ACTION_TYPES } from "../constants";
 
 const Card = ({ title, description, id, details }) => {
   const location = useLocation();
-  const { db, setDB } = useContext(DbContext);
+  const { db, setDB, dispatch } = useContext(DbContext);
   const [openAlert, setOpenAlert] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleDelete = () => {
     let indexOfEntry = db.indexOf(details);
@@ -47,6 +51,14 @@ const Card = ({ title, description, id, details }) => {
     setDB([...array]);
   };
 
+  const handleEdit = () => {
+    setOpenModal(true);
+    dispatch({
+      type: ACTION_TYPES.LOAD,
+      payload: { ...details },
+    });
+  };
+
   return (
     <>
       <ChakraCard>
@@ -62,7 +74,7 @@ const Card = ({ title, description, id, details }) => {
               View
             </Button>
 
-            <IconButton colorScheme="orange" icon={<EditIcon />} />
+            <IconButton colorScheme="orange" icon={<EditIcon />} onClick={handleEdit} />
 
             <IconButton colorScheme="red" icon={<DeleteIcon />} onClick={handleDelete} />
           </ButtonGroup>
@@ -89,6 +101,9 @@ const Card = ({ title, description, id, details }) => {
           </AlertDialogBody>
         </AlertDialogContent>
       </AlertDialog>
+      <Modal openModal={openModal} setOpenModal={setOpenModal} type={ACTION_TYPES.EDIT}>
+        <FormFields />
+      </Modal>
     </>
   );
 };

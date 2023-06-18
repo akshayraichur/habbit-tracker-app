@@ -17,8 +17,17 @@ const reducer = (state, action) => {
     }
 
     case ACTION_TYPES.EDIT: {
-      let newState = { ...state, ...action.payload };
-      return newState;
+      let db = [...action.payload.db];
+      let selectedElm = db.find((item) => item.id === state.id);
+      if (selectedElm) {
+        selectedElm.name = state.name;
+        selectedElm.repeat = state.repeat;
+        selectedElm.goal = state.goal;
+        selectedElm.time = state.time;
+        selectedElm.date = state.date;
+      }
+      action.payload.setDB([...db]);
+      return { ...initialState };
     }
 
     case ACTION_TYPES.LOAD: {

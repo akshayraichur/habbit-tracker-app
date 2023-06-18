@@ -11,13 +11,12 @@ import FormFields from "../components/FormFields";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [openModal, setOpenModal] = useState(false);
-
+  const navigate = useNavigate();
   const { db } = useContext(DbContext);
 
-  const habitsList = useMemo(() => db.filter((item) => !item.isArchive), [db]);
+  const [openModal, setOpenModal] = useState(false);
 
-  const navigate = useNavigate();
+  const habitsList = useMemo(() => db.filter((item) => !item.isArchive), [db]);
 
   return (
     <Container>

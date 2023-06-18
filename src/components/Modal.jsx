@@ -15,8 +15,8 @@ import { DbContext } from "../store/DatabaseContext";
 import PropTypes from "prop-types";
 
 const Modal = (props) => {
-  const { openModal, setOpenModal, children } = props;
-  const { dispatch, setDB } = useContext(DbContext);
+  const { openModal, setOpenModal, children, type } = props;
+  const { dispatch, setDB, db } = useContext(DbContext);
 
   const handleSubmit = () => {
     dispatch({
@@ -34,6 +34,17 @@ const Modal = (props) => {
       type: ACTION_TYPES.CLEAR,
     });
   };
+
+  const handleEdit = () => {
+    dispatch({
+      type: ACTION_TYPES.EDIT,
+      payload: {
+        db,
+        setDB,
+      },
+    });
+    setOpenModal(false);
+  };
   return (
     <ChakraModal isOpen={openModal} onClose={handleCloseModal}>
       <ModalOverlay />
@@ -45,8 +56,8 @@ const Modal = (props) => {
           <Button colorScheme="red" variant="ghost" mr={3} onClick={handleCloseModal}>
             Close
           </Button>
-          <Button colorScheme="green" onClick={handleSubmit}>
-            Lets do this!
+          <Button colorScheme="green" onClick={type === ACTION_TYPES.EDIT ? handleEdit : handleSubmit}>
+            {type === ACTION_TYPES.EDIT ? "Edit" : "Lets do this! "}
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -58,6 +69,7 @@ Modal.propTypes = {
   openModal: PropTypes.bool,
   setOpenModal: PropTypes.func,
   children: PropTypes.node,
+  type: PropTypes.string,
 };
 
 export default Modal;
