@@ -19,10 +19,13 @@ import PropTypes from "prop-types";
 import { DeleteIcon, EditIcon, TimeIcon } from "@chakra-ui/icons";
 import { useContext, useState } from "react";
 import { DbContext } from "../store/DatabaseContext";
+import { useLocation } from "react-router-dom";
 
 const Card = ({ title, description, details }) => {
+  const location = useLocation();
   const { db, setDB } = useContext(DbContext);
   const [openAlert, setOpenAlert] = useState(false);
+
   const handleDelete = () => {
     let indexOfEntry = db.indexOf(details);
     let array = [...db];
@@ -34,6 +37,7 @@ const Card = ({ title, description, details }) => {
   const onAlertClose = () => {
     setOpenAlert(false);
   };
+
   return (
     <>
       <ChakraCard>
@@ -68,9 +72,11 @@ const Card = ({ title, description, details }) => {
             <Text>Goal: {details.goal}</Text>
             <Text>Date: {details.date}</Text>
             <br />
-            <Button colorScheme="linkedin" leftIcon={<TimeIcon />}>
-              Archive this habit
-            </Button>
+            {location.pathname === "/" && (
+              <Button colorScheme="linkedin" leftIcon={<TimeIcon />}>
+                Archive this habit
+              </Button>
+            )}
           </AlertDialogBody>
         </AlertDialogContent>
       </AlertDialog>
