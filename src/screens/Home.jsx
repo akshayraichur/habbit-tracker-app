@@ -45,7 +45,7 @@ const Home = () => {
       <div>
         <SimpleGrid spacing={2} templateColumns="repeat(auto-fill, minmax(300px, 1fr))">
           {db.map((item) => (
-            <Card key={item.id} title={item.name} description={item.description} />
+            <Card key={item.id} title={item.name} description={item.description} id={item.id} details={item} />
           ))}
         </SimpleGrid>
       </div>
