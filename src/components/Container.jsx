@@ -5,7 +5,6 @@ const StyledContainer = styled.div`
   max-width: 700px;
   width: 100%;
   margin: auto;
-  /* background-color: #0f172a; */
   padding: 1rem;
   border-radius: 10px;
   height: 100vh;
