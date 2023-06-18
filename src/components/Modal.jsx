@@ -34,11 +34,11 @@ const Modal = (props) => {
     });
   };
   return (
-    <ChakraModal isOpen={openModal}>
+    <ChakraModal isOpen={openModal} onClose={handleCloseModal}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add a New Habit</ModalHeader>
-        <ModalCloseButton onClick={() => setOpenModal(false)} />
+        <ModalCloseButton onClick={handleCloseModal} />
         <ModalBody>{children}</ModalBody>
         <ModalFooter>
           <Button colorScheme="red" variant="ghost" mr={3} onClick={handleCloseModal}>

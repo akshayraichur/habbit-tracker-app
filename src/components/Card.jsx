@@ -14,7 +14,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import { DbContext } from "../store/DatabaseContext";
 
-const Card = ({ title, description, id, details }) => {
+const Card = ({ title, description, details }) => {
   const { db, setDB } = useContext(DbContext);
   const handleDelete = () => {
     let indexOfEntry = db.indexOf(details);
