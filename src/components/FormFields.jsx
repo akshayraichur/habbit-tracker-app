@@ -1,21 +1,20 @@
 import { Input, Select, SimpleGrid } from "@chakra-ui/react";
-import useFormData from "../store/useFormData";
-import { FORM_TYPES } from "../constants";
-import { useEffect } from "react";
+
+import { ACTION_TYPES, FORM_TYPES } from "../constants";
+import { useContext, useEffect } from "react";
+import { DbContext } from "../store/DatabaseContext";
 
 const FormFields = () => {
-  const [state, dispatch] = useFormData();
+  const { state, dispatch } = useContext(DbContext);
 
   const handleInputChange = (e, component) => {
     dispatch({
-      type: "ADD",
+      type: ACTION_TYPES.ADD,
       payload: {
         [component]: e.target.value,
       },
     });
   };
-
-  useEffect(() => {}, [state]);
 
   return (
     <form>

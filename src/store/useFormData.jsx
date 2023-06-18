@@ -9,14 +9,6 @@ const initialState = {
   [FORM_TYPES.DATE]: "",
 };
 
-const emptyState = {
-  [FORM_TYPES.NAME]: "",
-  [FORM_TYPES.REPEAT]: "",
-  [FORM_TYPES.GOAL]: "",
-  [FORM_TYPES.TIME]: "",
-  [FORM_TYPES.DATE]: "",
-};
-
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPES.ADD: {
@@ -35,7 +27,7 @@ const reducer = (state, action) => {
     }
 
     case ACTION_TYPES.CLEAR: {
-      return { ...emptyState };
+      return { ...initialState };
     }
 
     case ACTION_TYPES.UPLOAD: {
@@ -46,10 +38,15 @@ const reducer = (state, action) => {
         {
           ...state,
           id: Math.random().toString(),
+          description: "Lorem ipsum dolor sit amet.",
         },
       ]);
 
-      return { ...emptyState };
+      return { ...state };
+    }
+
+    default: {
+      return state;
     }
   }
 };

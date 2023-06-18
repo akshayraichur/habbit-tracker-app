@@ -12,22 +12,33 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import Card from "../components/Card";
 import FormFields from "../components/FormFields";
-import useFormData from "../store/useFormData";
 import { DbContext } from "../store/DatabaseContext";
+import { ACTION_TYPES } from "../constants";
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [state, dispatch] = useFormData();
-  const { db, setDB } = useContext(DbContext);
 
-  useEffect(() => {}, [state]);
+  const { db, setDB, dispatch } = useContext(DbContext);
 
-  console.log(state);
+  const handleSubmit = () => {
+    dispatch({
+      type: ACTION_TYPES.UPLOAD,
+      payload: {
+        setDB,
+      },
+    });
+  };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    dispatch({
+      type: ACTION_TYPES.CLEAR,
+    });
+  };
   return (
     <Container>
       <div>
@@ -58,29 +69,10 @@ const Home = () => {
               <FormFields />
             </ModalBody>
             <ModalFooter>
-              <Button
-                colorScheme="red"
-                variant="ghost"
-                mr={3}
-                onClick={() => {
-                  setOpenModal(false);
-                }}
-              >
+              <Button colorScheme="red" variant="ghost" mr={3} onClick={handleCloseModal}>
                 Close
               </Button>
-              <Button
-                colorScheme="green"
-                onClick={() => {
-                  // setDB((p) => [
-                  //   ...p,
-                  //   { ...state, id: Math.random().toString(), description: "Lorem ipsum dolor sit amet." },
-                  // ]);
-                  dispatch({
-                    type: "UPLOAD",
-                    payload: { setDB },
-                  });
-                }}
-              >
+              <Button colorScheme="green" onClick={handleSubmit}>
                 Lets do this!
               </Button>
             </ModalFooter>
