@@ -25,6 +25,7 @@ const Modal = (props) => {
         setDB,
       },
     });
+    setOpenModal(false);
   };
 
   const handleCloseModal = () => {
