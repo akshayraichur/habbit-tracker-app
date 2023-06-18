@@ -21,7 +21,7 @@ import { useContext, useState } from "react";
 import { DbContext } from "../store/DatabaseContext";
 import { useLocation } from "react-router-dom";
 
-const Card = ({ title, description, details }) => {
+const Card = ({ title, description, id, details }) => {
   const location = useLocation();
   const { db, setDB } = useContext(DbContext);
   const [openAlert, setOpenAlert] = useState(false);
@@ -36,6 +36,15 @@ const Card = ({ title, description, details }) => {
 
   const onAlertClose = () => {
     setOpenAlert(false);
+  };
+
+  const addToArchivesHandler = () => {
+    let array = [...db];
+    let selectedElm = array.find((item) => item.id === id);
+    if (selectedElm) {
+      selectedElm.isArchive = true;
+    }
+    setDB([...array]);
   };
 
   return (
@@ -73,7 +82,7 @@ const Card = ({ title, description, details }) => {
             <Text>Date: {details.date}</Text>
             <br />
             {location.pathname === "/" && (
-              <Button colorScheme="linkedin" leftIcon={<TimeIcon />}>
+              <Button colorScheme="linkedin" leftIcon={<TimeIcon />} onClick={addToArchivesHandler}>
                 Archive this habit
               </Button>
             )}

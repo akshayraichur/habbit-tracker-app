@@ -60,9 +60,13 @@ const Home = () => {
 
       <div>
         <SimpleGrid spacing={2} templateColumns="repeat(auto-fill, minmax(300px, 1fr))">
-          {habitsList.map((item) => (
-            <Card key={item.id} title={item.name} description={item.description} id={item.id} details={item} />
-          ))}
+          {habitsList.length ? (
+            habitsList.map((item) => (
+              <Card key={item.id} title={item.name} description={item.description} id={item.id} details={item} />
+            ))
+          ) : (
+            <Text fontSize="xl">No habits to show</Text>
+          )}
         </SimpleGrid>
       </div>
     </Container>
