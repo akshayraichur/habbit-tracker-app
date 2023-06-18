@@ -1,7 +1,7 @@
 import { Input, Select, SimpleGrid } from "@chakra-ui/react";
 
 import { ACTION_TYPES, FORM_TYPES } from "../constants";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { DbContext } from "../store/DatabaseContext";
 
 const FormFields = () => {

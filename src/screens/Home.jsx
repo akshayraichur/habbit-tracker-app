@@ -1,44 +1,19 @@
-import {
-  Button,
-  Center,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Center, SimpleGrid, Text } from "@chakra-ui/react";
 import Container from "../components/Container";
 import { useContext, useState } from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import Card from "../components/Card";
-import FormFields from "../components/FormFields";
+
 import { DbContext } from "../store/DatabaseContext";
-import { ACTION_TYPES } from "../constants";
+
+import Modal from "../components/Modal";
+import FormFields from "../components/FormFields";
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
 
-  const { db, setDB, dispatch } = useContext(DbContext);
+  const { db } = useContext(DbContext);
 
-  const handleSubmit = () => {
-    dispatch({
-      type: ACTION_TYPES.UPLOAD,
-      payload: {
-        setDB,
-      },
-    });
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    dispatch({
-      type: ACTION_TYPES.CLEAR,
-    });
-  };
   return (
     <Container>
       <div>
@@ -60,23 +35,8 @@ const Home = () => {
       </div>
 
       <div>
-        <Modal isOpen={openModal}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Add a New Habit</ModalHeader>
-            <ModalCloseButton onClick={() => setOpenModal(false)} />
-            <ModalBody>
-              <FormFields />
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="red" variant="ghost" mr={3} onClick={handleCloseModal}>
-                Close
-              </Button>
-              <Button colorScheme="green" onClick={handleSubmit}>
-                Lets do this!
-              </Button>
-            </ModalFooter>
-          </ModalContent>
+        <Modal openModal={openModal} setOpenModal={setOpenModal}>
+          <FormFields />
         </Modal>
       </div>
 
